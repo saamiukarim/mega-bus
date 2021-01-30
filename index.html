@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-class-input" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button onclick="handlerButtonFirstClass(true)" class="btn btn-success">+</button>
+                    <button  onclick="handlerButtonFirstClass(false)" class="btn btn-success">-</button>
+                </div>
+            </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="economy-input" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button onclick="handlerButtonEconomy(true)" class="btn btn-success">+</button>
+                    <button onclick="handlerButtonEconomy(false)" class="btn btn-success">-</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="sub-total">00</span></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="tax">00</span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="grand-total">00</span></p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-style" id="order-complete">Book Now</button>
+        </div>
+    </main>
+    <section id="complete-area">
+        <h1>Congratulations !</h1>
+        <br>
+        <h4> Your booking is confirmed, have a nice journey . Thank You</h4>
+        <br>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur doloribus provident cum dolorem voluptatibus. Debitis, commodi odit labore suscipit soluta omnis consectetur consequatur optio quis nobis minima ducimus qui illum?</p>
+    </section>
+    <script>
+        var subTotalFirstClass = 0;
+        var subTotalEconomy = 0;
+        var taxFirstClass = 0;
+        var taxEconomy = 0;
+        var grandTotal = 0;
+        
+        // Function For First Class Ticket..
+        function handlerButtonFirstClass(isIncrease){
+            const firstClassInput = document.getElementById("first-class-input");
+            const firstClassInputNum = parseInt(firstClassInput.value);
+            let totalFirstClassInput = firstClassInputNum;
+            if (isIncrease == true) {
+                totalFirstClassInput = firstClassInputNum + 1;
+            }
+            if (isIncrease == false && firstClassInputNum > 0) {
+                totalFirstClassInput = firstClassInputNum - 1;
+            }
+            // Subtotal For First Class
+            firstClassInput.value = totalFirstClassInput;  
+            subTotalFirstClass = totalFirstClassInput * 150;
+            const subTotal = subTotalFirstClass + subTotalEconomy;
+            document.getElementById("sub-total").innerText = subTotal;
+            
+            // Tax For First Class
+            taxFirstClass = subTotalFirstClass * 0.1;
+            const taxTotal = taxFirstClass + taxEconomy;
+            document.getElementById("tax").innerText = taxTotal;
+
+            // Grand Total..
+            grandTotal = subTotal + taxTotal;
+            document.getElementById("grand-total").innerText = grandTotal;
+
+            
+        }
+
+        // Function For Economy Class Ticket
+        function handlerButtonEconomy(isIncrease) {
+            const economyInput = document.getElementById("economy-input");
+            const economyInputNum = parseInt(economyInput.value);
+            let totalEconomyInput = economyInputNum;
+            if (isIncrease == true) {
+                totalEconomyInput = economyInputNum + 1;
+            }
+            if (isIncrease == false && economyInputNum > 0){
+                totalEconomyInput = economyInputNum - 1;
+
+            }
+            // Sub Total For Economy
+            economyInput.value = totalEconomyInput;
+            subTotalEconomy = totalEconomyInput * 100;
+            const subTotal = subTotalFirstClass + subTotalEconomy;
+            document.getElementById("sub-total").innerText = subTotal;
+            
+            // Tax For Economy
+            taxEconomy = subTotalEconomy * 0.1;
+            const taxTotal = taxFirstClass + taxEconomy
+            document.getElementById("tax").innerText = taxTotal;
+
+            // Grand Total
+            grandTotal = subTotal + taxTotal;
+            document.getElementById("grand-total").innerText = grandTotal;
+        }
+
+        // Book Now Button..
+
+        const bookNowButton = document.getElementById("order-complete").addEventListener('click',function orderComplete(){
+            if (grandTotal == 0) {
+                alert('You are leaving page without completing your order')
+            }
+            if (grandTotal != 0){
+                alert ('Your Order Has Been Placed Successfully')
+            }
+        })
+
+
+
+    </script>
+
+    <!--Thank You-->
+</body>
+
+</html>
